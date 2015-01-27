@@ -27,12 +27,14 @@ game.PlayerEntity = me.Entity.extend({
 			//set velocity
 			//me.timer.tick makes movement look smooth
 			this.body.vel.x += this.body.accel.x * me.timer.tick;
+			//flips animation so it now faces right
 			this.flipX(true);
 		} else{
 			this.body.vel.x = 0;
 		}
 
 		if(this.body.vel.x !== 0){
+			//adding walk animation so it oesnt run forever
 			if(!this.renderable.isCurrentAnimation("walk")){
 				this.renderable.setCurrentAnimation("walk");
 			}
