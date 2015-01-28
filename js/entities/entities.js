@@ -13,7 +13,7 @@ game.PlayerEntity = me.Entity.extend({
 		}]);
 		//sets velocity
 		this.body.setVelocity(5, 20);
-
+			//error with current animation
 		this.renderable.addAnimation("idle", [78]);
 			//adding annimation and setting speed
 		this.renderable.addAnimation("walk", [117, 118, 119, 120, 121, 122, 123, 124, 125], 80);
