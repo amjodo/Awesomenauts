@@ -47,7 +47,7 @@ game.PlayerEntity = me.Entity.extend({
 		this._super(me.Entity, "update", [delta]);
 		return true;
 	}
-
+//setting image heights and widths
 game.PlayerBaseEntity = me.Entity.extend({
 	init : function(x, y, settings){
 		this._super(me.Entity, 'init', [x, y, {
@@ -57,9 +57,11 @@ game.PlayerBaseEntity = me.Entity.extend({
 			spritewidth: "100",
 			spriteheight: "100",
 			getShape: function(){
+				//so it can be a polygon to use
 				return (new me.Rect(0, 0, 100, 100)). toPolygon();
 			}
 		}]);
+		//updating even if you aren't looking at it
 		this.broken = false;
 		this.health = 10;
 		this.alwaysUpdate = true;
@@ -72,6 +74,7 @@ game.PlayerBaseEntity = me.Entity.extend({
 		if(this.health<=0){
 			this.broken = true;
 		}
+		//continues to update
 		this.body.update(delta);
 
 		this._super(me.Entity, "update", [delta]);
