@@ -12,6 +12,7 @@ game.PlayerEntity = me.Entity.extend({
 		}]);
 		//sets velocity
 		this.body.setVelocity(5, 20);
+		//no matter where my player goes, we are going to follow him
 		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
 			//error with current animation
 		this.renderable.addAnimation("idle", [78]);
@@ -68,8 +69,9 @@ game.PlayerBaseEntity = me.Entity.extend({
 		this.alwaysUpdate = true;
 		this.body.onCollision = this.onCollision.bind(this);
 		this.type = "PlayerBaseEntity";
-
+		//not burning animation
 		this.renderable.addAnimation("idle", [0]);
+		//burning animation
 		this.renderable.addAnimation("broken", [1]);
 		this.renderable.setCurrentAnimation("idle");
 	},
@@ -77,6 +79,7 @@ game.PlayerBaseEntity = me.Entity.extend({
 	update:function(delta){
 		if(this.health<=0){
 			this.broken = true;
+			//setting it to be broken
 			this.renderable.setCurrentAnimation("broken");
 		}
 		//continues to update
@@ -109,8 +112,9 @@ game.EnemyBaseEntity = me.Entity.extend({
 		this.alwaysUpdate = true;
 		this.body.onCollision = this.onCollision.bind(this);
 		this.type = "EnemyBaseEntity";
-
+		//not burning animation
 		this.renderable.addAnimation("idle", [0]);
+		//burning animation
 		this.renderable.addAnimation("broken", [1]);
 		this.renderable.setCurrentAnimation("idle");
 	},
