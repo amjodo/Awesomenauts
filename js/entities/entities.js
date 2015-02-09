@@ -226,11 +226,11 @@ game.EnemyCreep = me.Entity.extend({
 	},
 	//creeps will drop to the ground and move the way they're supposed to
 	update: function(delta){
-
+		//represents time parameter
 
 		this.body.vel.x -= this.body.accel.x * me.timer.tick;
-
-
+		//making it so it actually moves
+		//basic update calls 
 		this.body.update(delta);
 
 
