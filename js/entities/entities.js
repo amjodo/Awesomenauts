@@ -25,7 +25,7 @@ game.PlayerEntity = me.Entity.extend({
 		this.renderable.addAnimation("walk", [117, 118, 119, 120, 121, 122, 123, 124, 125], 80);
 		this.renderable.addAnimation("attack", [65, 66, 67, 68, 69, 70, 71, 72], 80);
 
-		this.renderable.addAnimation("idle");
+		this.renderable.setCurrentAnimation("idle");
 	},
 
 	update: function(delta){
@@ -255,7 +255,7 @@ game.GameManager = Object.extend({
 
 		if(Math.round(this.now/1000)%10 ===0 && (this.now - this.lastCreep >=1000)){
 			this.lastCreep = this.now;
-			var creepe = me.pool.pull("EnemyCreep", 1000, 0 {});
+			var creepe = me.pool.pull("EnemyCreep", 1000, 0, {});
 			me.game.world.addChild(creepe, 5);
 		}
 
