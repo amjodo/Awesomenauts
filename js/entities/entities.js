@@ -52,7 +52,8 @@ game.PlayerEntity = me.Entity.extend({
 		//y axis not apart of code above, not jumping and falling
 		if(me.input.isKeyPressed("jump") && !this.body.jumping && !this.body.falling){
 			this.body.jumping = true;
-			this.body.vel.y -= this.accel.y * me.timer.tick;
+			this.body.vel.y -= this.body.accel.y * me.timer.tick;
+			me.audio.play("jump");
 		}
 		
 		if(me.input.isKeyPressed("attack")){
