@@ -113,13 +113,33 @@ game.PlayerEntity = me.Entity.extend({
 					this.pos.x = this.pos.x +1;
 				}
 
-				if(this.renderable.isCurrentAnimation("attack") && this.now-this.lastHit >= 600){
+				if(this.renderable.isCurrentAnimation("attack") && this.now-this.lastHit >= 1000){
 					console.log("tower Hit");
 					this.lastHit = this.now;
 					response.b.loseHealth();
 				}
+			}else if(response.b.type==='EnemyCreep'){
+				var xdif = this.pos.x - response.b.pos.x;
+				var ydif = this.pos.y - response.b.pos.y;
+
+				if (xdif>0){
+					this.pos.x = this.pos.x + 1;
+					if(this.facing==="left"){
+						this.vel.x = 0;
+					}
+				}else{
+					this.pos.x = this.pos.x - 1;
+					if(this.facing==="right"){
+						this.vel.x = 0;
+				}
+				if (this.renderable.isCurrentAnimation("attack") && this.now-this.lastHit >= 1000
+					  && (Math.abs(ydif) <=40) &&
+					  (((xdif>0) && this.facing==="left") || ((xdif<0) && this.facing==="right"))) {
+					this.lastHit = this.now; 
+					response.b.loseHealth(1);
+				}
 			}
-	}
+	    }
 });
 //setting image heights and widths
 game.PlayerBaseEntity = me.Entity.extend({
@@ -225,6 +245,11 @@ game.EnemyCreep = me.Entity.extend({
 		this.health = 10;
 		this.alwaysUpdate = true;
 
+		this.attacking = false;
+
+		this.lastAttacking = new Date().getTime();
+
+		this.lastHit = new Date().getTime();
 		this.body.setVelocity(3, 20);
 
 		this.type = "EnemyCreep";
@@ -232,9 +257,20 @@ game.EnemyCreep = me.Entity.extend({
 		this.renderable.addAnimation("walk", [3, 4, 5], 80);
 		this.renderable.setCurrentAnimation("walk");
 	},
+
+	loseHealth: function(damage){
+		this.health = this.health - damage;
+	},
+
 	//creeps will drop to the ground and move the way they're supposed to
 	update: function(delta){
+		console.log(this.health);
 		//represents time parameter
+		if(this.health <= 0) {
+			me.game.world.removeChild(this);
+		}
+
+		this.now = new Date().getTime();
 
 		this.body.vel.x -= this.body.accel.x * me.timer.tick;
 		//making it so it actually moves
