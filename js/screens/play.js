@@ -8,10 +8,8 @@ game.PlayScreen = me.ScreenObject.extend({
     //loading the level
 		me.levelDirector.loadLevel("level01");
 		//adding player
-		var player = me.pool.pull("player", 0, 420, {});
-		//adding him to the game
-		me.game.world.addChild(player, 5);
-
+		
+	
 		var gamemanager = me.pool.pull("GameManager", 0, 0, {});
 		me.game.world.addChild(gamemanager, 0);
 		//binding key
@@ -34,5 +32,12 @@ game.PlayScreen = me.ScreenObject.extend({
 	onDestroyEvent: function() {
 		// remove the HUD from the game world
 		me.game.world.removeChild(this.HUD);
+	},
+
+	resetPlayer: function(x, y){
+		game.data.player = me.pool.pull("player", x, y, {});
+		//adding him to the game
+		me.game.world.addChild(game.data.player, 5);
+
 	}
 });
