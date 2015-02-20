@@ -18,6 +18,7 @@ game.PlayerEntity = me.Entity.extend({
 		this.facing ="right"; 
 		this.now = new Date().getTime();
 		this.lastHit = this.now;
+		this.dead = false;
 		this.lastAttack = new Date(). getTime(); //haven't used this
 		//no matter where my player goes, we are going to follow him
 		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
@@ -32,6 +33,14 @@ game.PlayerEntity = me.Entity.extend({
 
 	update: function(delta){
 		this.now = new Date().getTime();
+
+		if(this.health <= 0){
+			this.dead = true;
+			this.pos.x = 10;
+			this.pos.y = 0;
+			this.health = game.data.playerHealth;
+		}
+
 		if(me.input.isKeyPressed("right")) {
 			//sets position of x using multiplication
 			//set velocity
