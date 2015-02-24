@@ -19,6 +19,7 @@ game.PlayerEntity = me.Entity.extend({
 		this.now = new Date().getTime();
 		this.lastHit = this.now;
 		this.dead = false;
+		this.attack = game.data.playerAttack;
 		this.lastAttack = new Date(). getTime(); //haven't used this
 		//no matter where my player goes, we are going to follow him
 		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
@@ -64,7 +65,6 @@ game.PlayerEntity = me.Entity.extend({
 		
 		if(me.input.isKeyPressed("attack")){
 			if(!this.renderable.isCurrentAnimation("attack")){
-				console.log(!this.renderable.isCurrentAnimation("attack"));
 				//sets the current animation to attack and once that is over
 				//goes back to the idle animation
 				this.renderable.setCurrentAnimation("attack", "idle");
@@ -97,7 +97,6 @@ game.PlayerEntity = me.Entity.extend({
 
 	loseHealth: function(damage){
 		this.health = this.health - damage;
-		console.log(this.health);
 	},
 	
 	collideHandler:function(response){
@@ -118,7 +117,7 @@ game.PlayerEntity = me.Entity.extend({
 				}
 
 				if(this.renderable.isCurrentAnimation("attack") && this.now-this.lastHit >= game.data.playerAttackTimer){
-					console.log("tower Hit");
+					
 					this.lastHit = this.now;
 					response.b.loseHealth(game.data.playerAttack);
 				};
@@ -141,7 +140,15 @@ game.PlayerEntity = me.Entity.extend({
 				if (this.renderable.isCurrentAnimation("attack") && this.now-this.lastHit >= game.data.playerAttack
 					  && (Math.abs(ydif) <=40) && //keeps track of space between
 					  (((xdif>0) && this.facing==="left") || ((xdif<0) && this.facing==="right"))) {
+					
 					this.lastHit = this.now; 
+					//if the creeps health is less than our attack,execute code in if statement
+					if(response.b.loseHealth <= game.data.playerAttack){
+						//adds one gold for a creep kill
+						game.data.gold += 1;
+						console.log("Current gold: " + game.data.gold);	
+					}
+
 					response.b.loseHealth(game.data.playerAttack);
 				}
 			}
@@ -270,7 +277,6 @@ game.EnemyCreep = me.Entity.extend({
 
 	//creeps will drop to the ground and move the way they're supposed to
 	update: function(delta){
-		console.log(this.health);
 		//represents time parameter
 		if(this.health <= 0) {
 			me.game.world.removeChild(this);
@@ -332,16 +338,20 @@ game.GameManager = Object.extend({
 	init: function(x, y, settings){
 		this.now = new Date().getTime();
 		this.lastCreep = new Date().getTime();
-
+		this.paused = false;
 		this.alwaysUpdate = true;
 	},
 
 	update: function(){
 		this.now = new Date().getTime();
-
-		if(game.data.player){
+		//may need to take .dead out
+		if(game.data.player.dead){
 			me.game.world.removeChild(game.data.player);
 			me.state.current().resetPlayer(10, 0);
+		}
+		if(Math.round(this.now/1000)%20 ===0 && (this.now - this.lastCreep >=1000)){
+			game.data.gold +=1;
+			console.log("Current gold: " + game.data.gold);
 		}
 
 		if(Math.round(this.now/1000)%10 ===0 && (this.now - this.lastCreep >=1000)){
