@@ -24,9 +24,8 @@ game.PlayerEntity = me.Entity.extend({
 		getShape: function(){
 			return(new me.Rect(0, 0, 64, 64)).toPolygon();
 		}
-	}]),
-},	
-
+	}]);	
+},
 	setPlayerTimers: function(){
 		this.now = new Date().getTime();
 		this.lastHit = this.now;

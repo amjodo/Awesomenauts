@@ -9,9 +9,14 @@ game.PlayScreen = me.ScreenObject.extend({
 		me.levelDirector.loadLevel("level01");
 		//adding player
 		
-	
-		var gamemanager = me.pool.pull("GameManager", 0, 0, {});
-		me.game.world.addChild(gamemanager, 0);
+		this.resetPlayer(0, 420);
+
+		var gameTimerManager = me.pool.pull("GameTimerManager", 0, 0, {});
+		me.game.world.addChild(gameTimerManager, 0);
+
+		var heroDeathManager = me.pool.pull("HeroDeathManager", 0, 0, {});
+		me.game.world.addChild(heroDeathManager, 0);
+
 		//binding key
 		//moving player left or right or jump
 		me.input.bindKey(me.input.KEY.RIGHT, "right");
