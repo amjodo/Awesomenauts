@@ -60,7 +60,7 @@ game.ExperienceManager = Object.extend({
 		}
 
 		return true;
-	}
+	},
 
 	
 	gameOver: function(win){
