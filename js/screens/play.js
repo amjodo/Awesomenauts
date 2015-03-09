@@ -8,7 +8,8 @@ game.PlayScreen = me.ScreenObject.extend({
     //loading the level
 		me.levelDirector.loadLevel("level01");
 		//adding player
-		
+		console.log(game.data.exp);
+		console.log(game.data.exp2);
 		this.resetPlayer(0, 420);
 
 		var gameTimerManager = me.pool.pull("GameTimerManager", 0, 0, {});
