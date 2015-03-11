@@ -18,6 +18,7 @@ game.EnemyCreep = me.Entity.extend({
 		this.lastAttacking = new Date().getTime();
 
 		this.lastHit = new Date().getTime();
+		this.now = new Date().getTime();
 		this.body.setVelocity(3, 20);
 
 		this.type = "EnemyCreep";
@@ -41,19 +42,17 @@ game.EnemyCreep = me.Entity.extend({
 
 		this.body.vel.x -= this.body.accel.x * me.timer.tick;
 		//making it so it actually moves
+
+		me.collision.check(this, true, this.collideHandler.bind(this), true);
 		//basic update calls 
 		this.body.update(delta);
-
-
-
 		this._super(me.Entity, "update", [delta]);
-
 		return true;
 
 	},
 
 	collideHandler: function(response){
-		if(response.b.type==='PlayerBase'){
+		if(response.b.type==='PlayerBaseEntity'){
 			this.attacking=true;
 			this.body.vel.x = 0;
 			//keeps moving the creep tothe right to maintain its position
@@ -64,7 +63,7 @@ game.EnemyCreep = me.Entity.extend({
 				this.lastHit = this.now;
 				//makes the player base call its loseHealth function
 				//damage of 1
-				response.b.loseHealth(game.data.enemyCreepAttack);
+				response.b.loseHealth(1);
 			}
 		}else if (response.b.type ==='PlayerEntity'){
 			var xdif = this.pos.x - response.b.pos.x;

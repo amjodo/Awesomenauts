@@ -39,6 +39,6 @@ game.EnemyBaseEntity = me.Entity.extend({
 	},
 
 	loseHealth: function(){
-		this.health = 10;
+		this.health--;
 	}
 });
