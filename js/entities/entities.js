@@ -135,6 +135,7 @@ game.PlayerEntity = me.Entity.extend({
 
 	loseHealth: function(damage){
 		this.health = this.health - damage;
+		console.log(this.health);
 	},
 	
 	collideHandler:function(response){
