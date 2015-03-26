@@ -8,7 +8,7 @@ game.PlayerBaseEntity = me.Entity.extend({
 			spriteheight: "100",
 			getShape: function(){
 				//so it can be a polygon to use
-				return (new me.Rect(0, 0, 100, 70)). toPolygon();
+				return (new me.Rect(0, 0, 100, 70)).toPolygon();
 			}
 		}]);
 		//updating even if you aren't looking at it

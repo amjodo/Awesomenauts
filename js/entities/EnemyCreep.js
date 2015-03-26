@@ -33,6 +33,55 @@ game.EnemyCreep = me.Entity.extend({
 
 	//creeps will drop to the ground and move the way they're supposed to
 	update: function(delta){
+		if (this.health <= 0) {
+			me.game.world.removeChild(this);
+		};
+
+		this.now = new Date().getTime();
+
+		this.body.vel.x -= this.body.accel.x * me.timer.tick;
+
+		me.collision.check(this, true, this.collideHandler.bind(this), true);
+
+		this.body.update(delta);
+
+		this._super(me.Entity, "update", [delta]);
+		return true;
+	}, 
+
+	loseHealth: function(damage){
+		this.health = this.health - damage;
+	}, 
+
+	collideHandler: function(response){
+		//putting enitity breaks it
+		if (response.b.type === 'PlayerBase') {
+			this.attacking = true;
+			// this.lastAttacking = this.now;
+			this.body.vel.x = 0;
+			this.pos.x = this.pos.x + 1;
+			if((this.now-this.lastHit >= 1000)) {
+				this.lastHit = this.now;
+				response.b.loseHealth(1);
+			}
+		}
+		else if (response.b.type === 'PlayerEntity') {
+			var xdif = this.pos.x - response.b.pos.x;
+			this.attacking = true;
+			// this.lastAttacking = this.now;
+		
+			if (xdif>0) {
+				this.pos.x = this.pos.x + 1;
+				this.body.vel.x = 0;
+			};
+			this.pos.x = this.pos.x + 1;
+			if((this.now-this.lastHit >= 1000) && xdif>0) {
+				this.lastHit = this.now;
+				response.b.loseHealth(game.data.enemyCreepAttack);
+			}
+		};
+	}
+	/*update: function(delta){
 		//represents time parameter
 		if(this.health <= 0) {
 			me.game.world.removeChild(this);
@@ -63,7 +112,7 @@ game.EnemyCreep = me.Entity.extend({
 				this.lastHit = this.now;
 				//makes the player base call its loseHealth function
 				//damage of 1
-				response.b.loseHealth(game.data.enemyCreepAttack);
+				response.b.loseHealth(1);
 			}
 		}else if (response.b.type ==='PlayerEntity'){
 			var xdif = this.pos.x - response.b.pos.x;
@@ -85,6 +134,6 @@ game.EnemyCreep = me.Entity.extend({
 				response.b.loseHealth(game.data.enemyCreepAttack);
 			}
 		}
-	}
+	}*/
 });
 
