@@ -1,4 +1,4 @@
-game.GameTimerManager = Object.extend({
+/*game.GameTimerManager = Object.extend({
 	init: function(x, y, settings){
 		this.now = new Date().getTime();
 		this.lastCreep = new Date().getTime();
@@ -255,4 +255,4 @@ game.SpendGold = Object.extend ({
 		me.input.unbindKey(me.input.KEY.F6, "F6", true);
 		me.game.world.removeChild(game.data.buytext);
 	}
-});
+});*/
