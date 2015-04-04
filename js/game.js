@@ -6,12 +6,18 @@ var game = {
 	data : {
 		// score
 		score : 0,
+		option1: "",
+		option2: "",
 		enemyBaseHealth: 1,
 		playerBaseHealth: 1,
 		enemyCreepHealth: 10,
 		playerHealth: 10,
 		enemyCreepAttack: 1,
 		playerAttack: 1,
+		//
+		//
+		//
+		//
 		playerAttackTimer: 1000,
 		creepAttackTimer: 1000,
 		playerMoveSpeed: 5,
@@ -34,10 +40,11 @@ var game = {
 		win: "",
 		pausePos: "",
 		buyScreen: "",
-		buyText: ""
+		buyText: "",
+		minimap: "",
+		miniplayer: ""
 		// variable that will affeect the movement etc of the character
 	},
-	
 	
 	// Run on page load.
 	"onload" : function () {
@@ -86,6 +93,9 @@ var game = {
 		me.pool.register("HeroDeathManager", game.HeroDeathManager);
 		me.pool.register("ExperienceManager", game.ExperienceManager);
 		me.pool.register("SpendGold", game.SpendGold);
+		me.pool.register("spear", game.SpearThrow, true);
+		me.pool.register("minimap", game.MiniMap, true);
+		me.pool.register("miniplayer", game.MiniPlayerLocation, true);
 
 		me.state.set(me.state.MENU, new game.TitleScreen());
 		me.state.set(me.state.PLAY, new game.PlayScreen());
