@@ -173,3 +173,4 @@ game.SpendGold = Object.extend ({
 			game.data.ability3 += 1;
 		}	
 	}
+});
