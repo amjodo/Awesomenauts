@@ -6,7 +6,7 @@ game.SpearThrow = me.Entity.extend({
         height: 48,
         spritewidth: "48",
         spriteheight: "48",
-        
+        //already had this code from 2-23
         getShape: function(){
             return (new me.Rect(0, 0, 48, 48)).toPolygon();
         }
@@ -29,7 +29,7 @@ game.SpearThrow = me.Entity.extend({
         if(this.facing === "left")
         {
             this.body.vel.x -= this.body.accel.x * me.timer.tick;
-        }
+        }//already had this code lines 29-43
         else{
             this.body.vel.x += this.body.accel.x * me.timer.tick;
         }
@@ -46,7 +46,7 @@ game.SpearThrow = me.Entity.extend({
 
             return true;
     },
-    
+    //already had code 50-57
     collideHandler: function(response)
       {
 	if(response.b.type === 'EnemyBase' || response.b.type === 'EnemyCreep')

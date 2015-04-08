@@ -6,6 +6,7 @@ var game = {
 	data : {
 		// score
 		score : 0,
+		//already had this code option1 and option2
 		option1: "",
 		option2: "",
 		enemyBaseHealth: 1,
