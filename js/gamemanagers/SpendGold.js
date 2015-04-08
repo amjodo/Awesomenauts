@@ -172,4 +172,4 @@ game.SpendGold = Object.extend ({
 			game.data.gold -= ((game.data.ability3 +1)*10);
 			game.data.ability3 += 1;
 		}	
-	},
+	}
