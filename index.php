@@ -99,7 +99,7 @@
 			me.state.change(me.state.MENU);
 		});
 		$("#register").bind("click", function() {
-			$ajax({
+			$.ajax({
 				type: "POST",
 				url: "php/controller/create-user.php",
 				data:  {
@@ -121,7 +121,7 @@
 					 });
 		 });
 		$("#load").bind("click", function() {
-			$ajax({
+			$.ajax({
 				type: "POST",
 				url: "php/controller/login-user.php",
 				data:  {
