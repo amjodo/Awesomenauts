@@ -32,12 +32,13 @@
 			$_SESSION["name"] = $username;
 			
 			echo json_encode($array);
-		} else {
-			echo "<p>Invalid username and password</p>";
+		} 		else {
+			echo "Invalid username and password";
 		}
-
 	}
-	
+		else {
+			echo "Invalid username and password";
+		}
 	//check if information was stored, get array store into row
 ?>	
 <!--html>
