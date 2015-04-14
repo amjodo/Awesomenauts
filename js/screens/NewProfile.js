@@ -1,8 +1,8 @@
 game.NewProfile = me.ScreenObject.extend({
-	/**	
-	 *  action to perform on state change
-	 */
-	onResetEvent: function() {	
+    /** 
+     *  action to perform on state change
+     */
+    onResetEvent: function() {  
             //add title screen
             me.game.world.addChild(new me.Sprite(0, 0, me.loader.getImage('new-screen')), -10);
             
@@ -36,12 +36,17 @@ game.NewProfile = me.ScreenObject.extend({
             })));  
             
                   
-        },	
-	
-	onDestroyEvent: function() {
+        },  
+    
+    onDestroyEvent: function() {
           document.getElementById("input").style.visibility = "hidden";
           document.getElementById("register").style.visibility = "hidden";
             
             
-	}
+    }
 });
+
+
+
+
+
